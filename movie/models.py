@@ -19,7 +19,7 @@ class Movie:
     def find_all_movies():
         movies_list = []
 
-        with open('movie/migrations/movie_small.csv', 'r', encoding='utf-8') as all_movies_file:
+        with open('movie/migrations/movies_small.csv', 'r', encoding='utf-8') as all_movies_file:
             reader = csv.DictReader(all_movies_file, delimiter=',')
 
             for row in reader:
