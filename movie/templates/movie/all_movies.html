@@ -13,6 +13,7 @@
             <th>Data wydania</th>
             <th>Liczba głosów</th>
             <th>Średnia ocena</th>
+            <th>Akcje</th>
         </tr>
         </thead>
         <tbody>
@@ -23,6 +24,9 @@
                 <td>{{ movie.release_date|date:'D d M Y' }}</td>
                 <td>{{ movie.vote_count }}</td>
                 <td>{{ movie.vote_average|floatformat:2 }}</td>
+                <td>
+                    <a href="{% url 'movie_details_url' tmdb_id=movie.tmdb_id %}">Szczegóły</a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
