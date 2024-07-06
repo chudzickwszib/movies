@@ -4,16 +4,14 @@ import datetime
 
 
 # Create your models here.
-class Movie:
-
-    def __init__(self, tmdb_id, original_title, overview, popularity, release_date, vote_count, vote_average):
-        self.tmdb_id = tmdb_id
-        self.original_title = original_title
-        self.overview = overview
-        self.popularity = popularity
-        self.release_date = release_date
-        self.vote_count = vote_count
-        self.vote_average = vote_average
+class Movie(models.Model):
+    tmdb_id = models.CharField(max_length=255)
+    original_title = models.CharField(max_length=1000)
+    overview = models.TextField()
+    popularity = models.DecimalField(max_digits=20, decimal_places=10)
+    release_date = models.DateField()
+    vote_count = models.IntegerField()
+    vote_average = models.DecimalField(max_digits=5, decimal_places=2)
 
     @staticmethod
     def find_all_movies():

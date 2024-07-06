@@ -1,7 +1,7 @@
 {% extends 'movie_base.html' %}
 
 {% block page_title %}
-	Szczegóły filmu
+    Szczegóły filmu
 {% endblock %}
 
 {% block page_content %}
@@ -10,7 +10,13 @@
         <div class="uk-card-header">
             {{ movie.original_title }}
             {{ movie.release_date|date:'D d M Y' }}
-            {{ movie.vote_average|floatformat:2 }}
+            {% if movie.vote_average >= 7 %}
+                <span class="uk-text-success">{{ movie.vote_average|floatformat:2 }}</span>
+            {% elif movie.vote_average >= 4 %}
+                <span class="uk-text-warning">{{ movie.vote_average|floatformat:2 }}</span>
+            {% else %}
+                <span class="uk-text-danger">{{ movie.vote_average|floatformat:2 }}</span>
+            {% endif %}
         </div>
         <div class="uk-card-body">
             {{ movie.overview }}
