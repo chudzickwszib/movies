@@ -64,6 +64,12 @@ def add_movie(request):
 
 def all_collections(request):
     user = User.objects.all()[0]
+
+    if request.method == 'POST':
+        name = request.POST['collection_name']
+        MovieCollection.objects.create(name=name, owner=user)
+        return redirect('all_collections_url')
+
     movie_collections = MovieCollection.objects.filter(owner=user).annotate(movie_count=Count('movies'))
     context = {
         'collections': movie_collections

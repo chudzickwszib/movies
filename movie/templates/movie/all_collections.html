@@ -5,10 +5,22 @@
 {% endblock %}
 
 {% block page_content %}
-
+    <form method="POST">
+        {% csrf_token %}
+        <div class="uk-margin">
+            <label class="uk-form-label" for="collection_name">Text</label>
+            <div class="uk-form-controls">
+                <input class="uk-input" id="collection_name" name="collection_name" type="text"
+                       placeholder="Nazwa kolekcji">
+                <button class="uk-button uk-button-default">
+                    Dodaj
+                </button>
+            </div>
+        </div>
+    </form>
     {% for collection in collections %}
         {{ collection.name }}
-        {% for movie in collection.movies %}
+        {% for movie in collection.movies.all %}
             <div class="uk-margin-large-left">
                 {{ movie.original_title }}
             </div>
