@@ -3,6 +3,7 @@ from django.core.validators import MinValueValidator, RegexValidator, MaxValueVa
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 
+
 def validate_even(value):
     if value % 2 != 0:
         raise ValidationError(f'{value} nie jest liczbą parzystą')
@@ -23,10 +24,10 @@ class Movie(models.Model):
     original_title = models.CharField(max_length=1000, validators=[MinLengthValidator(3)])
     overview = models.TextField(validators=[MinLengthValidator(10)])
     release_date = models.DateField()
-    cast = models.CharField(max_length=1000)
-    genres = models.CharField(max_length=1000)
-    keywords = models.TextField()
-    director = models.CharField(max_length=1000)
+    cast = models.CharField(max_length=1000, null=True)
+    genres = models.CharField(max_length=1000, null=True)
+    keywords = models.TextField(null=True)
+    director = models.CharField(max_length=1000, null=True)
     statistics = models.OneToOneField(MovieStatistics, on_delete=models.CASCADE)
 
     def __str__(self):

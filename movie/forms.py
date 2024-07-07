@@ -1,5 +1,6 @@
 from django import forms
 from django.core.validators import MinValueValidator, RegexValidator, MaxValueValidator, MinLengthValidator
+from django.forms.utils import ErrorList
 
 
 class MovieForm(forms.Form):
@@ -20,3 +21,8 @@ class MovieForm(forms.Form):
     genres = forms.CharField(label='Gatunki filmu', max_length=1000)
     keywords = forms.CharField(label='Słowa kluczowe')
     director = forms.CharField(label='Reżyser', max_length=1000)
+
+    def __init__(self, *args, **kwargs):
+        super(MovieForm, self).__init__(*args, **kwargs)
+        for visible_field in self.visible_fields():
+            visible_field.field.widget.attrs['class'] = 'uk-input uk-margin-small-bottom'

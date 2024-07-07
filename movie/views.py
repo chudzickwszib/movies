@@ -12,7 +12,7 @@ def all_movies(request):
     if title and len(title) > 3:
         found_movies = Movie.objects.filter(original_title__contains=title)
     else:
-        found_movies = Movie.objects.all()
+        found_movies = Movie.objects.all()[:25]
 
     found_movies_aggregation = found_movies.aggregate(Avg('statistics__vote_average'), Min('statistics__vote_average'),
                                                       Max('statistics__vote_average'), Count('id'))
