@@ -21,6 +21,41 @@
         {% include 'menu_button.html' with url_name='all_collections_url' icon='list' name='Kolekcje' %}
     </div>
     <div class="uk-width-expand">
+        <nav class="uk-navbar-container">
+            <div class="uk-container">
+                <div uk-navbar>
+                    <div class="uk-navbar-left">
+                        <span uk-icon="users"></span>
+                        {% if user.is_authenticated %}
+                            <ul class="uk-navbar-nav">
+                                <li class="uk-navbar-item">
+                                    {{ user.get_username|upper }}
+                                </li>
+                                {% if user.is_superuser %}
+                                    <a href="{% url 'add_movie_url' %}">
+                                        Dodaj film
+                                    </a>
+                                {% endif %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                    <div class="uk-navbar-right">
+                        <ul class="uk-navbar-nav">
+                            {% if user.is_authenticated %}
+                                <li class="uk-navbar-item">
+                                    <form method="POST" action="{% url 'logout' %}">
+                                        {% csrf_token %}
+                                        <button class="uk-button uk-button-default">
+                                            Wyloguj
+                                        </button>
+                                    </form>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
         <div class="uk-container">
             {% block page_content %}{% endblock %}
         </div>

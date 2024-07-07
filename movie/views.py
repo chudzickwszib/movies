@@ -4,8 +4,10 @@ from django.http import HttpResponseNotFound
 from django.db.models import Avg, Min, Max, Count
 from .forms import MovieForm
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 # Create your views here.
 def all_movies(request):
     title = request.GET.get('title')
@@ -25,6 +27,7 @@ def all_movies(request):
     return render(request, 'movie/all_movies.html', context)
 
 
+@login_required
 def movie_details(request, id):
     found_movie = Movie.objects.get(pk=id)
     if not found_movie:
@@ -35,6 +38,7 @@ def movie_details(request, id):
     return render(request, 'movie/movie_details.html', context)
 
 
+@login_required
 def add_movie(request):
     if request.method == 'POST':
         form = MovieForm(request.POST)
@@ -62,15 +66,16 @@ def add_movie(request):
     return render(request, 'movie/add_movie.html', context)
 
 
+@login_required
 def all_collections(request):
-    user = User.objects.all()[0]
+    logged_user = request.user
 
     if request.method == 'POST':
         name = request.POST['collection_name']
-        MovieCollection.objects.create(name=name, owner=user)
+        MovieCollection.objects.create(name=name, owner=logged_user)
         return redirect('all_collections_url')
 
-    movie_collections = MovieCollection.objects.filter(owner=user).annotate(movie_count=Count('movies'))
+    movie_collections = MovieCollection.objects.filter(owner=logged_user).annotate(movie_count=Count('movies'))
     context = {
         'collections': movie_collections
     }
