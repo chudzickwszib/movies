@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, RegexValidator, MaxValueValidator, MinLengthValidator
 from django.core.exceptions import ValidationError
-
+from django.contrib.auth.models import User
 
 def validate_even(value):
     if value % 2 != 0:
@@ -27,3 +27,11 @@ class Movie(models.Model):
 
     def __str__(self):
         return f'{self.original_title}'
+
+
+class MovieCollection(models.Model):
+    name = models.CharField(max_length=255)
+    creation_date = models.DateField(auto_now_add=True)
+    update_date = models.DateField(auto_now=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    movies = models.ManyToManyField(Movie)

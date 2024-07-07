@@ -7,8 +7,8 @@ from django.db.models import Avg, Min, Max, Count
 # Create your views here.
 def all_movies(request):
     found_movies = Movie.objects.all()
-    found_movies_aggregation = found_movies.aggregate(Avg('vote_average'), Min('vote_average'),
-                                                      Max('vote_average'), Count('id'))
+    found_movies_aggregation = found_movies.aggregate(Avg('statistics__vote_average'), Min('statistics__vote_average'),
+                                                      Max('statistics__vote_average'), Count('id'))
     context = {
         'movies': found_movies,
         'aggregation_data': found_movies_aggregation
