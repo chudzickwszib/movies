@@ -19,12 +19,14 @@
         </div>
     </form>
     {% for collection in collections %}
-        {{ collection.name }}
-        {% for movie in collection.movies.all %}
-            <div class="uk-margin-large-left">
-                {{ movie.original_title }}
-            </div>
-        {% endfor %}
+        <div>
+            {{ collection.name }} <a href="{% url 'collection_details_url' id=collection.id %}">Szczegóły</a>
+            {% for movie in collection.movies.all %}
+                <div class="uk-margin-large-left">
+                    {{ movie.original_title }}
+                </div>
+            {% endfor %}
+        </div>
     {% endfor %}
 
 {% endblock %}

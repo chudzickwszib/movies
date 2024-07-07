@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Movie, MovieStatistics, MovieCollection
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, HttpResponseForbidden
 from django.db.models import Avg, Min, Max, Count
 from .forms import MovieForm
 from django.contrib.auth.models import User
@@ -81,3 +81,14 @@ def all_collections(request):
         'collections': movie_collections
     }
     return render(request, 'movie/all_collections.html', context)
+
+
+@login_required
+def collection_details(request, id):
+    login_user = request.user
+    collection = MovieCollection.objects.get(pk=id)
+    if collection.owner.id != login_user.id:
+        return HttpResponseForbidden('Nie masz dostępu do tej kolekcji')
+    return render(request, 'movie/collection_details.html', {
+        'collection': collection
+    })

@@ -1,0 +1,10 @@
+{% extends 'movie_base.html' %}
+
+{% block page_content %}
+    <h1>{{ collection.name }}</h1>
+
+    {% for movie in collection.movies.all %}
+        <div>{{ movie.original_title }}</div>
+    {% endfor %}
+
+{% endblock %}
