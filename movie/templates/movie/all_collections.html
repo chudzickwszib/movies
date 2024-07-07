@@ -1,0 +1,18 @@
+{% extends 'movie_base.html' %}
+
+{% block page_title %}
+    Kolekcje
+{% endblock %}
+
+{% block page_content %}
+
+    {% for collection in collections %}
+        {{ collection.name }}
+        {% for movie in collection.movies %}
+            <div class="uk-margin-large-left">
+                {{ movie.original_title }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+{% endblock %}

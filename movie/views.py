@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import Movie, MovieStatistics
+from .models import Movie, MovieStatistics, MovieCollection
 from django.http import HttpResponseNotFound
 from django.db.models import Avg, Min, Max, Count
 from .forms import MovieForm
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -59,3 +60,12 @@ def add_movie(request):
         'movie_form': form
     }
     return render(request, 'movie/add_movie.html', context)
+
+
+def all_collections(request):
+    user = User.objects.all()[0]
+    movie_collections = MovieCollection.objects.filter(owner=user).annotate(movie_count=Count('movies'))
+    context = {
+        'collections': movie_collections
+    }
+    return render(request, 'movie/all_collections.html', context)

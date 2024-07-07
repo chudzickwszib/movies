@@ -7,7 +7,17 @@
 {% block page_content %}
     <form method="POST" class="uk-form-stacked">
         {% csrf_token %}
-        {{ movie_form }}
+        {% for field in movie_form %}
+            <div class="uk-margin">
+                <label class="uk-form-label">{{ field.label_tag }}</label>
+                <div class="uk-form-controls">
+                    {{ field }}
+                </div>
+                <div class="uk-text-danger uk-margin-small-top">
+                    {{ field.errors }}
+                </div>
+            </div>
+        {% endfor %}
         <button class="uk-button uk-button-default">
             Zapisz
         </button>
