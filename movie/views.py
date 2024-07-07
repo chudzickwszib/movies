@@ -1,7 +1,8 @@
-from django.shortcuts import render
-from .models import Movie
+from django.shortcuts import render, redirect
+from .models import Movie, MovieStatistics
 from django.http import HttpResponseNotFound
 from django.db.models import Avg, Min, Max, Count
+from .forms import MovieForm
 
 
 # Create your views here.
@@ -34,4 +35,27 @@ def movie_details(request, id):
 
 
 def add_movie(request):
-    return render(request, 'movie/add_movie.html')
+    if request.method == 'POST':
+        form = MovieForm(request.POST)
+
+        if form.is_valid():
+            movie_data = form.cleaned_data
+            stats = MovieStatistics.objects.create(vote_count=0, vote_average=0, popularity=0)
+            Movie.objects.create(
+                tmdb_id=movie_data['tmdb_id'],
+                original_title=movie_data['original_title'],
+                overview=movie_data['overview'],
+                release_date=movie_data['release_date'],
+                cast=movie_data['cast'],
+                genres=movie_data['genres'],
+                keywords=movie_data['keywords'],
+                director=movie_data['director'],
+                statistics=stats
+            )
+            return redirect('all_movies_url')
+
+    form = MovieForm()
+    context = {
+        'movie_form': form
+    }
+    return render(request, 'movie/add_movie.html', context)

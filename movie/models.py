@@ -23,6 +23,10 @@ class Movie(models.Model):
     original_title = models.CharField(max_length=1000, validators=[MinLengthValidator(3)])
     overview = models.TextField(validators=[MinLengthValidator(10)])
     release_date = models.DateField()
+    cast = models.CharField(max_length=1000)
+    genres = models.CharField(max_length=1000)
+    keywords = models.TextField()
+    director = models.CharField(max_length=1000)
     statistics = models.OneToOneField(MovieStatistics, on_delete=models.CASCADE)
 
     def __str__(self):
