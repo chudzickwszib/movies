@@ -9,3 +9,7 @@ class Book(models.Model):
     vote_count = models.IntegerField()
     iban = models.CharField(max_length=10, null=True)
     publication_country = models.CharField(max_length=255, default='Polska')
+
+    def __str__(self):
+        return f'{self.title} ({self.publish_date})'
+

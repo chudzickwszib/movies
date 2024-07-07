@@ -25,7 +25,7 @@
                 <td>{{ movie.vote_count }}</td>
                 <td>{{ movie.vote_average|floatformat:2 }}</td>
                 <td>
-                    <a href="{% url 'movie_details_url' tmdb_id=movie.tmdb_id %}">Szczegóły</a>
+                    <a href="{% url 'movie_details_url' id=movie.id %}">Szczegóły</a>
                 </td>
             </tr>
         {% endfor %}
