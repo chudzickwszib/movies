@@ -11,6 +11,17 @@
         <div>Min. ocena: {{ aggregation_data.statistics__vote_average__min|floatformat:2 }}</div>
         <div>Max. ocena: {{ aggregation_data.statistics__vote_average__max|floatformat:2 }}</div>
     </div>
+    <form class="uk-width-1-1 uk-flex gap-small uk-margin-medium-top">
+        <input
+                placeholder="Wyszukaj po nazwie"
+                id="title" name="title" class="uk-input uk-border-rounded uk-margin-small-right" >
+        <button type="submit" class="uk-button uk-button-default uk-border-rounded">
+            Szukaj
+        </button>
+    </form>
+    {% if filter_title %}
+        <span>Filtr nazwy: {{ filter_title }}</span>
+    {% endif %}
     <table class="uk-table uk-table-striped">
         <thead>
         <tr>

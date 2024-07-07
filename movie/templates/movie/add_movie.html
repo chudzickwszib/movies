@@ -1,0 +1,32 @@
+{% extends 'movie_base.html' %}
+
+{% block page_title %}
+    Dodanie filmu
+{% endblock %}
+
+{% block page_content %}
+    <form method="POST" class="uk-form-stacked">
+        <div class="uk-margin">
+            <label class="uk-form-label" for="tmdb_id">TMDB ID</label>
+            <div class="uk-form-controls">
+                <input class="uk-input" id="tmdb_id" name="tmdb_id" type="text" placeholder="TMDB ID">
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="title">Tytuł filmu</label>
+            <div class="uk-form-controls">
+                <input class="uk-input" id="title" name="title" type="text" placeholder="Tytuł">
+            </div>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="overview">Opis</label>
+            <div class="uk-form-controls">
+                <textarea class="uk-textarea" id="overview" name="overview" cols="3"></textarea>
+            </div>
+        </div>
+
+        <button class="uk-button uk-button-default">
+            Zapisz
+        </button>
+    </form>
+{% endblock %}
